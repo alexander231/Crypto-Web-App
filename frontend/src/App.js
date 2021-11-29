@@ -1,21 +1,22 @@
-import React from "react"
-import { useState, useEffect } from "react"
+import React, { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { getAllCoins } from "./redux/coinsSlice"
 import { Grid } from "@mui/material"
 import Header from "./components/Header"
 import Body from "./components/Body"
-import cryptocurrenciesService from './services/cryptocurrencies'
-const App = () => {
-  const [coins, setCoins] = useState([])
-  const [fiat, setFiat] = useState('usd')
-  const [noOfcoins, setNoOfCoins] = useState(10)
-  useEffect(() => {
-    cryptocurrenciesService.getAll(fiat).then((response) => {
-      setCoins(response.slice(0, noOfcoins))
-    })
-  }, [fiat, noOfcoins])
-  console.log(noOfcoins)
-  console.log(coins)
 
+const App = () => {
+  const dispatch = useDispatch()
+  const { currentCurrency } = useSelector(state => state.coins)
+  useEffect(() => {
+    dispatch(getAllCoins(currentCurrency))
+  }, [dispatch])
+ 
+ 
+  //const [fiat, setFiat] = useState('usd')
+  //const [noOfcoins, setNoOfCoins] = useState(10)
+  
+ 
 
   return (
     
@@ -29,8 +30,7 @@ const App = () => {
       <Grid item xs={0} sm={2} />
 
       <Grid item xs={12} sm={8}>
-       
-          <Body coins={coins} addCoins = {setNoOfCoins} />
+          <Body />
       </Grid>
       
         <Grid item xs={0} sm={2} />

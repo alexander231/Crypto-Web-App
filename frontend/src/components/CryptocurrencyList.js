@@ -1,10 +1,13 @@
 import React from 'react'
 import Cryptocurrency from './Cryptocurrency'
 import { Grid } from '@mui/material'
-const CryptocurrencyList = ({ coins }) => {
+import { useSelector } from 'react-redux'
+const CryptocurrencyList = () => {
+    const { currentCoins } = useSelector(state => state.coins)
     return (
+        
         <Grid container direction="column" justifyContent="center" alignItems="center" spacing={4}>
-            {coins.map(coin => <Grid item key={coin.name} ><Cryptocurrency 
+            {currentCoins.map(coin => <Grid item key={coin.name} ><Cryptocurrency 
                                                             name={coin.name} 
                                                             index={coin.market_cap_rank} 
                                                             image={coin.image} 

@@ -1,8 +1,11 @@
 import React from 'react'
 import CryptocurrencyList from './CryptocurrencyList'
 import Selector from './Selector'
-import { Button, Divider, Grid } from '@mui/material'
-const Body = ({ coins, addCoins}) => {
+import { Button, Grid } from '@mui/material'
+import { INCREASE_CURRENT_COINS_SIZE } from '../redux/coinsSlice'
+import { useDispatch } from 'react-redux'
+const Body = () => {
+    const dispatch = useDispatch()
     return (
         <Grid container direction="column" spacing={4} justifyContent="center" alignItems="center">  
             
@@ -11,10 +14,11 @@ const Body = ({ coins, addCoins}) => {
             </Grid>
             
             <Grid item>
-                <CryptocurrencyList coins={coins}/>
+                <CryptocurrencyList/> 
+                
             </Grid>
             <Grid item>
-                <Button onClick={() => addCoins(20)}>
+                <Button onClick={() => dispatch(INCREASE_CURRENT_COINS_SIZE(10))}>
                     Show more coins
                 </Button>
             </Grid>
